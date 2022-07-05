@@ -1,6 +1,18 @@
 import { Box, Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "./authContext";
+import { signOutEndpoint } from "./backend";
 
 export function HeaderLogin() {
+  const { user, onSignOut } = useAuthContext();
+  let history = useHistory();
+
+  function singout() {
+    signOutEndpoint();
+    onSignOut();
+    history.push("/login");
+  }
+
   return (
     <Box
       className=" "
@@ -11,8 +23,8 @@ export function HeaderLogin() {
     >
       <h1>Despesas</h1>
       <Box>
-        Ola user
-        <Button href="/">Sair</Button>
+        Ola {user.nome}
+        <Button onClick={() => singout()}>Sair</Button>
       </Box>
     </Box>
   );

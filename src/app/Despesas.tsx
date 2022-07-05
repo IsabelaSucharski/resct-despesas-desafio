@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { TableDespesas } from "./TableDespesas";
 import { useParams, useHistory } from "react-router-dom";
 import { SelectedAnoMes } from "./SelectAnoMes";
+import { HeaderLogin } from "./HeaderLogin";
 
 export function Despesas() {
   const { anoMes } = useParams<{ anoMes: string }>();
@@ -55,20 +56,28 @@ export function Despesas() {
   }, [handleDespesasMes]);
 
   return (
-    <Container>
-      <Box display="flex" flexDirection="column">
-        <Box display="flex" flexDirection="row" justifyContent="space-between">
+    <>
+      <HeaderLogin />
+
+      <Container>
+        <Box display="flex" flexDirection="column">
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            <Box>
+              <SelectedAnoMes anoMes={anoMes} toggleMes={toggleMes} />
+            </Box>
+            <Box alignSelf="center">
+              <span>Despesas total: {formatNumbers(despesaTotal)}</span>
+            </Box>
+          </Box>
           <Box>
-            <SelectedAnoMes anoMes={anoMes} toggleMes={toggleMes} />
-          </Box>
-          <Box alignSelf="center">
-            <span>Despesas total: {formatNumbers(despesaTotal)}</span>
+            <TableDespesas despesas={despesasMes} />
           </Box>
         </Box>
-        <Box>
-          <TableDespesas despesas={despesasMes} />
-        </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 }

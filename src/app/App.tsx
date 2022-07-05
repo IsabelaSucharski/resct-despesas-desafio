@@ -5,25 +5,38 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { HeaderLogin } from "./HeaderLogin";
 import { Login } from "./Login";
+import { useEffect, useState } from "react";
+import { authContext } from "./authContext";
+import { getUserEndpoint, IUser } from "./backend";
 
 function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/login\">
-          <Login />
-        </Route>
-        <Route path="/despesas/:anoMes">
-          <HeaderLogin />
-          <Despesas />;
-        </Route>
-        <Redirect to={{ pathname: "/login" }} />
-        <Redirect to={{ pathname: "/despesas/2021-03" }} />
-      </Switch>
-    </Router>
-  );
+  const [user, setUser] = useState<IUser | null>(null);
+
+  useEffect(() => {
+    getUserEndpoint().then(setUser, onSignOut);
+  }, []);
+
+  function onSignOut() {
+    setUser(null);
+  }
+
+  if (user) {
+    return (
+      <authContext.Provider value={{ user, onSignOut }}>
+        <Router>
+          <Switch>
+            <Route path="/despesas/:anoMes">
+              <Despesas />;
+            </Route>
+            <Redirect to={{ pathname: "/despesas/2021-03" }} />
+          </Switch>
+        </Router>
+      </authContext.Provider>
+    );
+  } else {
+    return <Login onSignIn={setUser} />;
+  }
 }
 
 export default App;
