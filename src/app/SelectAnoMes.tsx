@@ -1,30 +1,30 @@
 import { Box, FormControl, InputLabel, NativeSelect } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { meses, ano } from "../helpers";
+import { meses, anos } from "../helpers";
 
 interface IAno {
   ano: string;
-  id: number;
+  id: string;
 }
 
 interface IMes {
   mes: string;
-  id: number;
+  id: string;
 }
 
 interface ISelectedAnoMes {
   anoMes: string;
-  toggleMes(e: any): void;
+  toggleRoute(novoAnoMes: string): void;
 }
 
 export function SelectedAnoMes(props: ISelectedAnoMes) {
-  let campos = props.anoMes.split("-");
+  let [ano, mes] = props.anoMes.split("-");
 
   const [listAno, setListAno] = useState<IAno[]>([]);
   const [listMes, setListMes] = useState<IMes[]>([]);
 
   useEffect(() => {
-    setListAno(ano);
+    setListAno(anos);
     setListMes(meses);
   }, []);
 
@@ -35,12 +35,12 @@ export function SelectedAnoMes(props: ISelectedAnoMes) {
           <InputLabel id="select-ano">Ano</InputLabel>
           <NativeSelect
             id="select-ano"
-            value={campos[0]}
-            onChange={(e) => e.target.value}
+            value={ano}
+            onChange={(e) => props.toggleRoute(e.target.value + "-" + mes)}
           >
             {listAno.map((a) => {
               return (
-                <option key={a.id} value={a.ano}>
+                <option key={a.ano} value={a.ano}>
                   {a.ano}
                 </option>
               );
@@ -53,8 +53,8 @@ export function SelectedAnoMes(props: ISelectedAnoMes) {
           <InputLabel id="select-mes">Mes</InputLabel>
           <NativeSelect
             id="select-mes"
-            value={campos[1].split("0")[1]}
-            onChange={(e) => props.toggleMes(e)}
+            value={mes}
+            onChange={(e) => props.toggleRoute(ano + "-" + e.target.value)}
           >
             {listMes.map((m) => {
               return (

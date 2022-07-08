@@ -1,62 +1,62 @@
 export const meses = [
   {
     mes: "janeiro",
-    id: 1,
+    id: '01',
   },
   {
     mes: "fevereiro",
-    id: 2,
+    id: '02',
   },
   {
     mes: "março",
-    id: 3,
+    id: '03',
   },
   {
     mes: "abril",
-    id: 4,
+    id: '04',
   },
   {
     mes: "maio",
-    id: 5,
+    id: '05',
   },
   {
     mes: "junho",
-    id: 6,
+    id: '06',
   },
   {
     mes: "julho",
-    id: 7,
+    id: '07',
   },
   {
     mes: "agosto",
-    id: 8,
+    id: '08',
   },
   {
     mes: "setembro",
-    id: 9,
+    id: '09',
   },
   {
     mes: "outubro",
-    id: 10,
+    id: '10',
   },
   {
     mes: "novembro",
-    id: 11,
+    id: '11',
   },
   {
     mes: "dezembro",
-    id: 12,
+    id: '12',
   },
 ];
 
-export const ano = [
+export const anos = [
   {
     ano: "2020",
-    id: 1,
+    id: '01',
   },
   {
     ano: "2021",
-    id: 2,
+    id: '02',
   },
 ];
 
